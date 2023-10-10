@@ -61,13 +61,28 @@ export default function Game() {
         if((Math.abs(snakeHeadTile!.x - tile.x) === 1 && Math.abs(snakeHeadTile!.y - tile.y) === 0) ||
             (Math.abs(snakeHeadTile!.x - tile.x) === 0 && Math.abs(snakeHeadTile!.y - tile.y) === 1))
         {
-            // check if snake segment was click (which is an invalid move)
+            // check if snake segment was clicked (which is an invalid move)
             if(snake!.segmentIds.indexOf(tile.id) !== -1){
                 console.log('invalid')
                 return;
             }
 
+            // create new grid to update grid state
             let newGrid = grid;
+            // set last segment piece on grid to false, essentailly remove last segment from snake on grid
+            newGrid.find(x => x.id === snake!.segmentIds[snake!.length - 1])!.active = false;
+            
+            // update snake object with new headId and segment array
+            let updatedSegments: number[] = snake!.segmentIds;
+            updatedSegments?.pop();
+            let newSnake :ISnake = {
+                headId: tile.id,
+                segmentIds: [tile.id, ...updatedSegments],
+                length: 3
+            }
+            setSnake(newSnake);
+
+            // update grid to show new head of snake
             newGrid.find(x => x.id === tile.id)!.active = true;
             setGrid([...newGrid])
         }
