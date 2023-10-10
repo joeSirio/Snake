@@ -8,7 +8,9 @@ export default function Tile(props: any) {
     }
 
     return (
-        <div className={`tile ${props.tile.active ? "active" : ""}`} style={{width: props.tileWidth, height: props.tileHeight}}
+        <div className={`tile ${props.tile.active ? "active" : ""} ${props.snakeHeadId === props.tile.id ? "snakeHead" : ""}`} 
+            style={{width: props.tileWidth, height: props.tileHeight}}
+            data-id={props.tile.id}
             onClick={handleTileClick}>
         </div>
     )

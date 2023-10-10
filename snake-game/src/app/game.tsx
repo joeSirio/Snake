@@ -92,7 +92,12 @@ export default function Game() {
     return (
      <div className="game-wrapper" style={{width: width, height: height}}>
         {grid.map(tile => (
-            <Tile key={tile.id} tileWidth={tileWidth} tileHeight={tileHeight} handleTileClick={handleTileClick} tile={tile} />
+            <Tile key={tile.id} 
+                tileWidth={tileWidth} 
+                tileHeight={tileHeight} 
+                handleTileClick={handleTileClick} 
+                tile={tile} 
+                snakeHeadId={snake?.headId} />
         ))}
      </div>
     )
