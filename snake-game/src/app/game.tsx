@@ -33,9 +33,9 @@ export default function Game() {
         }
 
         // set snake start position
-        grid.find(x => x.id === 12).active = true;
-        grid.find(x => x.id === 13).active = true;
-        grid.find(x => x.id === 14).active = true;
+        grid.find(x => x.id === 12)!.active = true;
+        grid.find(x => x.id === 13)!.active = true;
+        grid.find(x => x.id === 14)!.active = true;
 
         // update grid state
         setGrid(grid);
@@ -50,25 +50,25 @@ export default function Game() {
         setSnake(snake);
       }, []);
 
-    function handleTileClick(tile){
+    function handleTileClick(tile: ITile){
         // handle tile click and move snake
-        let snakeHeadTile = grid.find(x => x.id === snake.headId);
+        let snakeHeadTile = grid.find(x => x.id === snake!.headId);
         console.log("*********** tile click *********")
         console.log(snakeHeadTile)
         console.log(tile)
 
         // check if click was valid for snake to move
-        if((Math.abs(snakeHeadTile.x - tile.x) === 1 && Math.abs(snakeHeadTile.y - tile.y) === 0) ||
-            (Math.abs(snakeHeadTile.x - tile.x) === 0 && Math.abs(snakeHeadTile.y - tile.y) === 1))
+        if((Math.abs(snakeHeadTile!.x - tile.x) === 1 && Math.abs(snakeHeadTile!.y - tile.y) === 0) ||
+            (Math.abs(snakeHeadTile!.x - tile.x) === 0 && Math.abs(snakeHeadTile!.y - tile.y) === 1))
         {
             // check if snake segment was click (which is an invalid move)
-            if(snake.segmentIds.indexOf(tile.id) !== -1){
+            if(snake!.segmentIds.indexOf(tile.id) !== -1){
                 console.log('invalid')
                 return;
             }
 
             let newGrid = grid;
-            newGrid.find(x => x.id === tile.id).active = true;
+            newGrid.find(x => x.id === tile.id)!.active = true;
             setGrid([...newGrid])
         }
     }
