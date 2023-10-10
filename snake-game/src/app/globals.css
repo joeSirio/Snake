@@ -114,6 +114,11 @@ a {
   flex-wrap: wrap;
 }
 
+.tile{
+  border: 1px solid #fff;
+  display: inline-block;
+}
+
 .tile.active{
   background:green;
 }

@@ -8,7 +8,7 @@ export default function Tile(props: any) {
     }
 
     return (
-        <div className={`tile ${props.tile.active ? "active" : ""}`} style={{width: props.tileWidth, height: props.tileHeight, border: "1px solid #fff", display: "inline-block"}}
+        <div className={`tile ${props.tile.active ? "active" : ""}`} style={{width: props.tileWidth, height: props.tileHeight}}
             onClick={handleTileClick}>
         </div>
     )

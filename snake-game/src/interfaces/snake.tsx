@@ -1,8 +1,8 @@
 
 
 interface ISnake {
-    head: number[][],
-    segments: number[][],
+    headId: number,
+    segmentIds: number[],
     length: number,
 }
 
