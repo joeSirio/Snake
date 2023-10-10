@@ -25,7 +25,8 @@ export default function Game() {
                     id: id,
                     x: x,
                     y: y,
-                    active: false
+                    active: false,
+                    food: false
                 };
                 grid.push(tile)
                 id++;
@@ -50,6 +51,21 @@ export default function Game() {
         setSnake(snake);
       }, []);
 
+    const handleFoodGeneration = () => {
+        // 25% chance to generate food on a random square
+        if(Math.random() > 0.75){
+            // find all open tiles
+            let openTiles = grid.filter(x => x.active === false && x.food === false);
+            // randomly select an open tile
+            let targetTile = openTiles[Math.floor(Math.random() * openTiles.length)];
+
+            let newGrid = grid;
+            newGrid.find(x => x.id === targetTile.id)!.food = true;
+
+            setGrid(newGrid)
+        }
+    }
+
     function handleTileClick(tile: ITile){
         // handle tile click and move snake
         let snakeHeadTile = grid.find(x => x.id === snake!.headId);
@@ -72,19 +88,32 @@ export default function Game() {
             // set last segment piece on grid to false, essentailly remove last segment from snake on grid
             newGrid.find(x => x.id === snake!.segmentIds[snake!.length - 1])!.active = false;
             
-            // update snake object with new headId and segment array
             let updatedSegments: number[] = snake!.segmentIds;
-            updatedSegments?.pop();
+            let snakeLength = snake!.length;
+
+            // check if food tile
+            if(!tile.food){
+                updatedSegments?.pop();
+            }
+            else{
+                snakeLength++;
+            }
+
+            // update snake object with new headId and segment array
             let newSnake :ISnake = {
                 headId: tile.id,
                 segmentIds: [tile.id, ...updatedSegments],
-                length: 3
+                length: snakeLength
             }
             setSnake(newSnake);
 
             // update grid to show new head of snake
-            newGrid.find(x => x.id === tile.id)!.active = true;
+            let targetTile = newGrid.find(x => x.id === tile.id)
+            targetTile!.active = true;
+            targetTile!.food = false;
             setGrid([...newGrid])
+
+            handleFoodGeneration()
         }
     }
     
