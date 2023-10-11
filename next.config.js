@@ -6,6 +6,7 @@ const nextConfig = {
 
     // Add basePath
     basePath: '/snake',
+    output: "export"
 }
 
 module.exports = nextConfig
